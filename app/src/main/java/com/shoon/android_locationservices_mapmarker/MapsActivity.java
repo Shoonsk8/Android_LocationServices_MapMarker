@@ -10,10 +10,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import static android.provider.SettingsSlicesContract.KEY_LOCATION;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    private LatLng sydney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -22,6 +24,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById( R.id.map );
         mapFragment.getMapAsync( this );
+        sydney =  savedInstanceState.getParcelable(KEY_LOCATION);
     }
 
 
@@ -39,8 +42,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng( -34, 151 );
-        mMap.addMarker( new MarkerOptions().position( sydney ).title( "Marker in Sydney" ) );
+    /*    LatLng center = new LatLng( 0, 0 );
+        mMap.addMarker( new MarkerOptions().position( center ).title( "Center of the world" ) );
+        mMap.moveCamera( CameraUpdateFactory.newLatLng( center ) );*/
+
+
+
+        mMap.addMarker( new MarkerOptions().position( sydney ).title( "Center of the world" ) );
         mMap.moveCamera( CameraUpdateFactory.newLatLng( sydney ) );
     }
 }
